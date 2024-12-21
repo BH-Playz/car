@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blue Background with Fading Spotlight</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap'); 
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #01488B;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .title-bar {
+      background-color: #002b5c;
+      color: white;
+      padding: 15px 30px; 
+      text-align: left;
+      position: sticky;
+      top: 0;
+      height: 60px; 
+      display: flex; 
+      align-items: center; 
+      font-size: 40px; 
+    }
+
+    .battery-icon {
+      position: relative;
+      top: -5px; 
+      right: 20px;
+      display: flex;
+      align-items: center; 
+    }
+
+    .battery-icon img {
+      width: 30px; 
+      height: 30px;
+    }
+
+    .battery-text {
+      margin-left: 5px; 
+      font-size: 20px; 
+      color: white;
+    }
+
+    .spotlight {
+      position: absolute;
+      top: 100px;
+      left: 50px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.3);
+      -webkit-mask: radial-gradient(circle at center, white 0%, transparent 80%);
+      mask: radial-gradient(circle at center, white 0%, transparent 80%);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title-bar">
+      <span id="currentTime"></span> 
+    </div>
+    <div class="battery-icon">
+      <img src="battery_icon.png" alt="Battery"> 
+      <span id="batteryPercentage"></span>
+    </div>
+  </div>
+
+  <div class="spotlight"></div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const options = { weekday: 'short', month: 'short', day: 'numeric' };
+      const formattedDate = now.toLocaleDateString('en-US', options);
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const timeString = hours + ":" + minutes + " | " + formattedDate; 
+      document.getElementById("currentTime").textContent = timeString;
+
+      // Example: Get battery level (replace with actual battery API)
+      const batteryLevel = Math.floor(Math.random() * 101); 
+      document.getElementById("batteryPercentage").textContent = batteryLevel + "%"; 
+    }
+
+    // Update time every second
+    setInterval(updateClock, 1000); 
+
+    // Initial call to set the time immediately
+    updateClock(); 
+  </script>
+</body>
+</html>
